@@ -46,7 +46,7 @@ public class TacGiaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TacGia> updateTacGia(@PathVariable Long id, @RequestBody TacGiaRequest tacGiaRequest) {
+    public ResponseEntity<TacGia> updateTacGia(@PathVariable Long id, @RequestBody @Valid TacGiaRequest tacGiaRequest) {
         TacGia tacGia = tacGiaService.updateTacGia(id, tacGiaRequest);
         return new ResponseEntity<>(tacGia, HttpStatus.OK);
     }

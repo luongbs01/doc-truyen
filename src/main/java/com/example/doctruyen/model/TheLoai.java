@@ -1,12 +1,13 @@
 package com.example.doctruyen.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -19,6 +20,7 @@ public class TheLoai {
     private Long idTheLoai;
     private String tenTheLoai;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "danhSachTheLoai")
-    private List<Truyen> danhSachTruyen;
+    private Set<Truyen> danhSachTruyen;
 }

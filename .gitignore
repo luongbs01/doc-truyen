@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+src/main/resources/doc-truyen-firebase-adminsdk.json

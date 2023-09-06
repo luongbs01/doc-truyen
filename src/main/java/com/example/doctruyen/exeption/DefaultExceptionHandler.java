@@ -1,6 +1,7 @@
 package com.example.doctruyen.exeption;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.time.LocalDateTime;
 
 @ControllerAdvice
+@Slf4j
 public class DefaultExceptionHandler {
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
@@ -36,6 +38,7 @@ public class DefaultExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<ApiError> handleException(Exception e, HttpServletRequest request) {
+        log.error("Exception occurred: " + e.getMessage());
         ApiError error = new ApiError(
                 request.getRequestURI(),
                 "Bad request",

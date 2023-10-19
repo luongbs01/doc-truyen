@@ -1,7 +1,9 @@
 package com.example.doctruyen.service;
 
 import com.example.doctruyen.dto.TheLoaiRequest;
+import com.example.doctruyen.dto.TheLoaiResponse;
 import com.example.doctruyen.exeption.GlobalException;
+import com.example.doctruyen.mapper.TheLoaiMapper;
 import com.example.doctruyen.model.TheLoai;
 import com.example.doctruyen.repository.TheLoaiRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,6 +21,7 @@ import java.util.Optional;
 public class TheLoaiService {
 
     private final TheLoaiRepository theLoaiRepository;
+    private final TheLoaiMapper theLoaiMapper;
 
     public TheLoai createTheLoai(TheLoaiRequest theLoaiRequest) {
         if (theLoaiRepository.findByTenTheLoai(theLoaiRequest.getTenTheLoai()).isPresent()) {
@@ -28,12 +32,18 @@ public class TheLoaiService {
         return theLoaiRepository.save(theLoai);
     }
 
-    public Page<TheLoai> listTheLoai(int page, int size, String sort) {
+    public Page<TheLoaiResponse> listTheLoai(int page, int size, String sort) {
         Optional<String> sortOptional = Optional.ofNullable(sort);
         if (sortOptional.isPresent()) {
-            return theLoaiRepository.findAll(PageRequest.of(page, size, Sort.by(sort)));
+            return theLoaiRepository.findAll(PageRequest.of(page, size, Sort.by(sort)))
+                    .map(theLoaiMapper::mapToResponse);
         }
-        return theLoaiRepository.findAll(PageRequest.of(page, size));
+        return theLoaiRepository.findAll(PageRequest.of(page, size))
+                .map(theLoaiMapper::mapToResponse);
+    }
+
+    public List<TheLoai> listAll() {
+        return theLoaiRepository.findAll();
     }
 
     public TheLoai getTheLoai(Long id) {

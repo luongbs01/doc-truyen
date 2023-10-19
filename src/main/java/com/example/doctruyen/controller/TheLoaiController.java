@@ -1,6 +1,7 @@
 package com.example.doctruyen.controller;
 
 import com.example.doctruyen.dto.TheLoaiRequest;
+import com.example.doctruyen.dto.TheLoaiResponse;
 import com.example.doctruyen.model.TheLoai;
 import com.example.doctruyen.service.TheLoaiService;
 import jakarta.validation.Valid;
@@ -9,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/the-loai")
@@ -24,12 +27,18 @@ public class TheLoaiController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<TheLoai>> listTheLoai(
+    public ResponseEntity<Page<TheLoaiResponse>> listTheLoai(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String sort
     ) {
-        Page<TheLoai> danhSachTheLoai = theLoaiService.listTheLoai(page, size, sort);
+        Page<TheLoaiResponse> danhSachTheLoai = theLoaiService.listTheLoai(page, size, sort);
+        return new ResponseEntity<>(danhSachTheLoai, HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<TheLoai>> listAll() {
+        List<TheLoai> danhSachTheLoai = theLoaiService.listAll();
         return new ResponseEntity<>(danhSachTheLoai, HttpStatus.OK);
     }
 

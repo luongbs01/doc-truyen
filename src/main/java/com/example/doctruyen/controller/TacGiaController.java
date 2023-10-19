@@ -1,6 +1,7 @@
 package com.example.doctruyen.controller;
 
 import com.example.doctruyen.dto.TacGiaRequest;
+import com.example.doctruyen.dto.TacGiaResponse;
 import com.example.doctruyen.model.TacGia;
 import com.example.doctruyen.service.TacGiaService;
 import jakarta.validation.Valid;
@@ -9,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/tac-gia")
@@ -24,12 +27,18 @@ public class TacGiaController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<TacGia>> listTacGia(
+    public ResponseEntity<Page<TacGiaResponse>> listTacGia(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String sort
     ) {
-        Page<TacGia> danhSachTacGia = tacGiaService.listTacGia(page, size, sort);
+        Page<TacGiaResponse> danhSachTacGia = tacGiaService.listTacGia(page, size, sort);
+        return new ResponseEntity<>(danhSachTacGia, HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<TacGia>> listAll() {
+        List<TacGia> danhSachTacGia = tacGiaService.listAll();
         return new ResponseEntity<>(danhSachTacGia, HttpStatus.OK);
     }
 

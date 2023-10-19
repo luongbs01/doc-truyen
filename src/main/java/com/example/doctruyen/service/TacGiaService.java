@@ -1,7 +1,9 @@
 package com.example.doctruyen.service;
 
 import com.example.doctruyen.dto.TacGiaRequest;
+import com.example.doctruyen.dto.TacGiaResponse;
 import com.example.doctruyen.exeption.GlobalException;
+import com.example.doctruyen.mapper.TacGiaMapper;
 import com.example.doctruyen.model.TacGia;
 import com.example.doctruyen.repository.TacGiaRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,6 +21,7 @@ import java.util.Optional;
 public class TacGiaService {
 
     private final TacGiaRepository tacGiaRepository;
+    private final TacGiaMapper tacGiaMapper;
 
     public TacGia createTacGia(TacGiaRequest tacGiaRequest) {
         if (tacGiaRepository.findByTenTacGia(tacGiaRequest.getTenTacGia()).isPresent()) {
@@ -28,12 +32,18 @@ public class TacGiaService {
         return tacGiaRepository.save(tacGia);
     }
 
-    public Page<TacGia> listTacGia(int page, int size, String sort) {
+    public Page<TacGiaResponse> listTacGia(int page, int size, String sort) {
         Optional<String> sortOptional = Optional.ofNullable(sort);
         if (sortOptional.isPresent()) {
-            return tacGiaRepository.findAll(PageRequest.of(page, size, Sort.by(sort)));
+            return tacGiaRepository.findAll(PageRequest.of(page, size, Sort.by(sort)))
+                    .map(tacGiaMapper::mapToResponse);
         }
-        return tacGiaRepository.findAll(PageRequest.of(page, size));
+        return tacGiaRepository.findAll(PageRequest.of(page, size))
+                .map(tacGiaMapper::mapToResponse);
+    }
+
+    public List<TacGia> listAll() {
+        return tacGiaRepository.findAll();
     }
 
     public TacGia getTacGia(Long id) {

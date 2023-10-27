@@ -3,11 +3,7 @@ package com.example.doctruyen.service;
 import com.example.doctruyen.dto.TruyenRequest;
 import com.example.doctruyen.exeption.GlobalException;
 import com.example.doctruyen.mapper.TruyenMapper;
-import com.example.doctruyen.model.TacGia;
-import com.example.doctruyen.model.TheLoai;
 import com.example.doctruyen.model.Truyen;
-import com.example.doctruyen.repository.TacGiaRepository;
-import com.example.doctruyen.repository.TheLoaiRepository;
 import com.example.doctruyen.repository.TruyenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,9 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

@@ -1,22 +1,20 @@
 package com.example.doctruyen.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 public class Chuong {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idChuong;
     private String tieuDeChuong;
-    private String noiDungChuong;
+    private String urlNoiDungChuong;
     private Integer thuTuChuong;
 
     @ManyToOne

@@ -8,12 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.UUID;
 
 @Service
@@ -32,22 +29,10 @@ public class GoogleCloudStorageService implements FileService {
         BlobId blobId = BlobId.of(BUCKET_NAME, filename);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(file.getContentType()).build();
         try {
-            File tempFile = convertToFile(file, filename);
-            storage.create(blobInfo, Files.readAllBytes(tempFile.toPath()));
-            tempFile.delete();
+            storage.create(blobInfo, file.getBytes());
             return String.format(DOWNLOAD_URL, URLEncoder.encode(filename, StandardCharsets.UTF_8));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private File convertToFile(MultipartFile multipartFile, String fileName) {
-        File tempFile = new File(fileName);
-        try (FileOutputStream fos = new FileOutputStream(tempFile)) {
-            fos.write(multipartFile.getBytes());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return tempFile;
     }
 }

@@ -46,8 +46,9 @@ public class TheLoaiService {
         return theLoaiRepository.findAll();
     }
 
-    public TheLoai getTheLoai(Long id) {
-        TheLoai theLoai = theLoaiRepository.findById(id)
+    public TheLoaiResponse getTheLoai(Long id) {
+        TheLoaiResponse theLoai = theLoaiRepository.findById(id)
+                .map(theLoaiMapper::mapToResponse)
                 .orElseThrow(() -> new GlobalException("The loai voi id " + id + " khong ton tai"));
         return theLoai;
     }

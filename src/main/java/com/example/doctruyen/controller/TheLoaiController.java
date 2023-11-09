@@ -43,8 +43,8 @@ public class TheLoaiController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TheLoai> getTheLoai(@PathVariable Long id) {
-        TheLoai theLoai = theLoaiService.getTheLoai(id);
+    public ResponseEntity<TheLoaiResponse> getTheLoai(@PathVariable Long id) {
+        TheLoaiResponse theLoai = theLoaiService.getTheLoai(id);
         return new ResponseEntity<>(theLoai, HttpStatus.OK);
     }
 

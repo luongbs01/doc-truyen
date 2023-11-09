@@ -46,8 +46,9 @@ public class TacGiaService {
         return tacGiaRepository.findAll();
     }
 
-    public TacGia getTacGia(Long id) {
-        TacGia tacGia = tacGiaRepository.findById(id)
+    public TacGiaResponse getTacGia(Long id) {
+        TacGiaResponse tacGia = tacGiaRepository.findById(id)
+                .map(tacGiaMapper::mapToResponse)
                 .orElseThrow(() -> new GlobalException("Tac gia voi id " + id + " khong ton tai"));
         return tacGia;
     }

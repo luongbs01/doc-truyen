@@ -43,8 +43,8 @@ public class TacGiaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TacGia> getTacGia(@PathVariable Long id) {
-        TacGia tacGia = tacGiaService.getTacGia(id);
+    public ResponseEntity<TacGiaResponse> getTacGia(@PathVariable Long id) {
+        TacGiaResponse tacGia = tacGiaService.getTacGia(id);
         return new ResponseEntity<>(tacGia, HttpStatus.OK);
     }
 

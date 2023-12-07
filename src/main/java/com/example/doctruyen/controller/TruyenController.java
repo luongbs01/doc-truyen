@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/truyen")
 @RequiredArgsConstructor
@@ -30,6 +32,16 @@ public class TruyenController {
             @RequestParam(required = false) String sort
     ) {
         Page<Truyen> danhSachTruyen = truyenService.listTruyen(page, size, sort);
+        return new ResponseEntity<>(danhSachTruyen, HttpStatus.OK);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<List<Truyen>> searchTruyen(
+            @RequestParam(required = false) String tenTruyen,
+            @RequestParam(required = false) Long idTacGia,
+            @RequestParam(required = false) Long idTheLoai
+    ) {
+        List<Truyen> danhSachTruyen = truyenService.searchTruyen(tenTruyen, idTacGia, idTheLoai);
         return new ResponseEntity<>(danhSachTruyen, HttpStatus.OK);
     }
 

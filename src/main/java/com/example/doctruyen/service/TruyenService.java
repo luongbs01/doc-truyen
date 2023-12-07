@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,6 +37,11 @@ public class TruyenService {
             return truyenRepository.findAll(PageRequest.of(page, size, Sort.by(sort)));
         }
         return truyenRepository.findAll(PageRequest.of(page, size));
+    }
+
+    public List<Truyen> searchTruyen(String tenTruyen, Long idTacGia, Long idTheLoai) {
+        List<Truyen> danhSachTruyen = truyenRepository.searchTruyen(tenTruyen, idTacGia, idTheLoai);
+        return danhSachTruyen;
     }
 
     public Truyen getTruyen(Long id) {

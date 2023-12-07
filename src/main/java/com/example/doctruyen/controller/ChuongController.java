@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/chuong")
 @RequiredArgsConstructor
@@ -26,6 +28,12 @@ public class ChuongController {
     public ResponseEntity<Chuong> getChuong(@PathVariable Long id) {
         Chuong chuong = chuongService.getChuong(id);
         return new ResponseEntity<>(chuong, HttpStatus.OK);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<Chuong>> getChuongByIdTruyen(@RequestParam Long idTruyen) {
+        List<Chuong> danhSachChuong = chuongService.getChuongByIdTruyen(idTruyen);
+        return new ResponseEntity<>(danhSachChuong, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

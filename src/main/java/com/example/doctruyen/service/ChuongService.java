@@ -9,6 +9,8 @@ import com.example.doctruyen.repository.TruyenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ChuongService {
@@ -37,6 +39,14 @@ public class ChuongService {
         Chuong chuong = chuongRepository.findById(id)
                 .orElseThrow(() -> new GlobalException("Chuong voi id " + id + " khong ton tai"));
         return chuong;
+    }
+
+    public List<Chuong> getChuongByIdTruyen(Long idTruyen) {
+        Truyen truyen = truyenRepository.findById(idTruyen)
+                .orElseThrow(() -> new GlobalException("Truyen voi id " + idTruyen + " khong ton tai"));
+        List<Chuong> danhSachChuong = chuongRepository.findAllByTruyen(truyen)
+                .orElseThrow(() -> new GlobalException("Truyen chua co chuong"));
+        return danhSachChuong;
     }
 
     public void xoaChuong(Long id) {

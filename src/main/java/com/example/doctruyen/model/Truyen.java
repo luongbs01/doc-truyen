@@ -19,6 +19,8 @@ public class Truyen {
     private Long idTruyen;
     private String tenTruyen;
     private String urlAnh;
+    @Lob
+    @Column(name = "mo_ta", length = 512)
     private String moTa;
     private Instant ngayDang;
     private String nguon;

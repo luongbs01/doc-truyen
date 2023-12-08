@@ -31,16 +31,8 @@ public class TruyenService {
         return truyenRepository.save(truyen);
     }
 
-    public Page<Truyen> listTruyen(int page, int size, String sort) {
-        Optional<String> sortOptional = Optional.ofNullable(sort);
-        if (sortOptional.isPresent()) {
-            return truyenRepository.findAll(PageRequest.of(page, size, Sort.by(sort)));
-        }
-        return truyenRepository.findAll(PageRequest.of(page, size));
-    }
-
-    public List<Truyen> searchTruyen(String tenTruyen, Long idTacGia, Long idTheLoai) {
-        List<Truyen> danhSachTruyen = truyenRepository.searchTruyen(tenTruyen, idTacGia, idTheLoai);
+    public List<Truyen> searchTruyen(String tenTruyen, Long idTacGia, Long idTheLoai, Integer page, Integer size) {
+        List<Truyen> danhSachTruyen = truyenRepository.searchTruyen(tenTruyen, idTacGia, idTheLoai, page, size);
         return danhSachTruyen;
     }
 

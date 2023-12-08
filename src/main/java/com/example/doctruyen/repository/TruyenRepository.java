@@ -13,11 +13,13 @@ public interface TruyenRepository extends JpaRepository<Truyen, Long> {
     Optional<Truyen> findByTenTruyen(String tenTruyen);
 
     @Query(nativeQuery = true,
-            value = "SELECT " +
+            value = "SELECT DISTINCT " +
                     "t.* " +
                     "FROM truyen t, truyen_the_loai ttl " +
                     "WHERE (?1 IS NULL OR t.ten_truyen LIKE CONCAT('%', ?1, '%')) " +
                     "AND (?2 IS NULL OR t.id_tac_gia = ?2) " +
-                    "AND (?3 IS NULL OR ttl.id_the_loai = ?3);")
-    List<Truyen> searchTruyen(String tenTruyen, Long idTacGia, Long idTheLoai);
+                    "AND (?3 IS NULL OR ttl.id_the_loai = ?3) " +
+                    "ORDER BY t.id_truyen " +
+                    "LIMIT ?5 OFFSET ?4")
+    List<Truyen> searchTruyen(String tenTruyen, Long idTacGia, Long idTheLoai, Integer page, Integer size);
 }

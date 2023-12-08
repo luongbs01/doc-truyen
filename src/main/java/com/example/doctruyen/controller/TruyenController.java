@@ -26,22 +26,14 @@ public class TruyenController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Truyen>> listTruyen(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(required = false) String sort
-    ) {
-        Page<Truyen> danhSachTruyen = truyenService.listTruyen(page, size, sort);
-        return new ResponseEntity<>(danhSachTruyen, HttpStatus.OK);
-    }
-
-    @PostMapping("/search")
     public ResponseEntity<List<Truyen>> searchTruyen(
             @RequestParam(required = false) String tenTruyen,
             @RequestParam(required = false) Long idTacGia,
-            @RequestParam(required = false) Long idTheLoai
+            @RequestParam(required = false) Long idTheLoai,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size
     ) {
-        List<Truyen> danhSachTruyen = truyenService.searchTruyen(tenTruyen, idTacGia, idTheLoai);
+        List<Truyen> danhSachTruyen = truyenService.searchTruyen(tenTruyen, idTacGia, idTheLoai, size * (page - 1), size);
         return new ResponseEntity<>(danhSachTruyen, HttpStatus.OK);
     }
 

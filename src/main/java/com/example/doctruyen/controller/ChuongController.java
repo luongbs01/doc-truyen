@@ -36,6 +36,16 @@ public class ChuongController {
         return new ResponseEntity<>(danhSachChuong, HttpStatus.OK);
     }
 
+    @GetMapping("/pagination")
+    public ResponseEntity<List<Chuong>> getChuongByIdTruyenPagination(
+            @RequestParam Long idTruyen,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        List<Chuong> danhSachChuong = chuongService.getChuongByIdTruyenPagination(idTruyen, size * (page - 1), size);
+        return new ResponseEntity<>(danhSachChuong, HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteChuong(@PathVariable Long id) {
         chuongService.xoaChuong(id);

@@ -49,6 +49,11 @@ public class ChuongService {
         return danhSachChuong;
     }
 
+    public List<Chuong> getChuongByIdTruyenPagination(Long idTruyen, Integer page, Integer size) {
+        List<Chuong> danhSachChuong = chuongRepository.findAllByTruyenId(idTruyen, page, size);
+        return danhSachChuong;
+    }
+
     public void xoaChuong(Long id) {
         chuongRepository.deleteById(id);
     }

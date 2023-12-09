@@ -3,6 +3,8 @@ package com.example.doctruyen.controller;
 import com.example.doctruyen.dto.TruyenRequest;
 import com.example.doctruyen.model.Truyen;
 import com.example.doctruyen.service.TruyenService;
+import com.google.gson.JsonObject;
+import io.swagger.v3.core.util.Json;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -10,7 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/truyen")
@@ -36,6 +40,19 @@ public class TruyenController {
     ) {
         List<Truyen> danhSachTruyen = truyenService.searchTruyen(tenTruyen, idTacGia, idTheLoai, isFull, size * (page - 1), size);
         return new ResponseEntity<>(danhSachTruyen, HttpStatus.OK);
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<JsonObject> countTruyen(
+            @RequestParam(required = false) String tenTruyen,
+            @RequestParam(required = false) Long idTacGia,
+            @RequestParam(required = false) Long idTheLoai,
+            @RequestParam(required = false) boolean isFull
+    ) {
+        Integer countTruyen = truyenService.countTruyen(tenTruyen, idTacGia, idTheLoai, isFull);
+        JsonObject json = new JsonObject();
+        json.addProperty("total", countTruyen);
+        return new ResponseEntity<>(json, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

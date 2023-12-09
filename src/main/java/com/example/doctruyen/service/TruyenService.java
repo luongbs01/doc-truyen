@@ -36,6 +36,11 @@ public class TruyenService {
         return danhSachTruyen;
     }
 
+    public Integer countTruyen(String tenTruyen, Long idTacGia, Long idTheLoai, Boolean isFull) {
+        Integer countTruyen = truyenRepository.countTruyen(tenTruyen, idTacGia, idTheLoai, isFull);
+        return countTruyen;
+    }
+
     public Truyen getTruyen(Long id) {
         Truyen truyen = truyenRepository.findById(id)
                 .orElseThrow(() -> new GlobalException("Truyen voi id " + id + " khong ton tai"));

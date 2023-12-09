@@ -15,7 +15,7 @@ public interface TruyenRepository extends JpaRepository<Truyen, Long> {
     @Query(nativeQuery = true,
             value = "SELECT DISTINCT " +
                     "t.* " +
-                    "FROM truyen t, truyen_the_loai ttl " +
+                    "FROM truyen t JOIN truyen_the_loai ttl ON t.id_truyen = ttl.id_truyen " +
                     "WHERE (?1 IS NULL OR t.ten_truyen LIKE CONCAT('%', ?1, '%')) " +
                     "AND (?2 IS NULL OR t.id_tac_gia = ?2) " +
                     "AND (?3 IS NULL OR ttl.id_the_loai = ?3) " +

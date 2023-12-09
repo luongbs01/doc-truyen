@@ -31,8 +31,8 @@ public class TruyenService {
         return truyenRepository.save(truyen);
     }
 
-    public List<Truyen> searchTruyen(String tenTruyen, Long idTacGia, Long idTheLoai, Integer page, Integer size) {
-        List<Truyen> danhSachTruyen = truyenRepository.searchTruyen(tenTruyen, idTacGia, idTheLoai, page, size);
+    public List<Truyen> searchTruyen(String tenTruyen, Long idTacGia, Long idTheLoai, Boolean isFull, Integer page, Integer size) {
+        List<Truyen> danhSachTruyen = truyenRepository.searchTruyen(tenTruyen, idTacGia, idTheLoai, isFull, page, size);
         return danhSachTruyen;
     }
 

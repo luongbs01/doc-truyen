@@ -30,10 +30,11 @@ public class TruyenController {
             @RequestParam(required = false) String tenTruyen,
             @RequestParam(required = false) Long idTacGia,
             @RequestParam(required = false) Long idTheLoai,
+            @RequestParam(required = false) boolean isFull,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        List<Truyen> danhSachTruyen = truyenService.searchTruyen(tenTruyen, idTacGia, idTheLoai, size * (page - 1), size);
+        List<Truyen> danhSachTruyen = truyenService.searchTruyen(tenTruyen, idTacGia, idTheLoai, isFull, size * (page - 1), size);
         return new ResponseEntity<>(danhSachTruyen, HttpStatus.OK);
     }
 

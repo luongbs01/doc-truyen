@@ -19,7 +19,8 @@ public interface TruyenRepository extends JpaRepository<Truyen, Long> {
                     "WHERE (?1 IS NULL OR t.ten_truyen LIKE CONCAT('%', ?1, '%')) " +
                     "AND (?2 IS NULL OR t.id_tac_gia = ?2) " +
                     "AND (?3 IS NULL OR ttl.id_the_loai = ?3) " +
+                    "AND (?4 IS NULL OR t.full = ?4) " +
                     "ORDER BY t.id_truyen " +
-                    "LIMIT ?5 OFFSET ?4")
-    List<Truyen> searchTruyen(String tenTruyen, Long idTacGia, Long idTheLoai, Integer page, Integer size);
+                    "LIMIT ?6 OFFSET ?5")
+    List<Truyen> searchTruyen(String tenTruyen, Long idTacGia, Long idTheLoai, Boolean isFull, Integer page, Integer size);
 }

@@ -59,9 +59,6 @@ public class TheLoaiService {
 
     @Transactional
     public TheLoai updateTheLoai(Long id, TheLoaiRequest theLoaiRequest) {
-        if (theLoaiRepository.findByTenTheLoai(theLoaiRequest.getTenTheLoai()).isPresent()) {
-            throw new GlobalException("Ten the loai da ton tai");
-        }
         TheLoai theLoai = theLoaiRepository.findById(id)
                 .orElseThrow(() -> new GlobalException("The loai voi id " + id + " khong ton tai"));
         theLoai.setTenTheLoai(theLoaiRequest.getTenTheLoai());

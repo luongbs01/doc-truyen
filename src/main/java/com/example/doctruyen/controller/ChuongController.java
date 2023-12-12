@@ -51,4 +51,10 @@ public class ChuongController {
         chuongService.xoaChuong(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Chuong> updateChuong(@PathVariable Long id, @ModelAttribute @Valid ChuongRequest chuongRequest) {
+        Chuong chuong = chuongService.updateChuong(id, chuongRequest);
+        return new ResponseEntity<>(chuong, HttpStatus.OK);
+    }
 }

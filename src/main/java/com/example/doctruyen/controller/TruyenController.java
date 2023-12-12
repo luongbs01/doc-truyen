@@ -59,4 +59,10 @@ public class TruyenController {
         truyenService.xoaTruyen(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Truyen> updateTruyen(@PathVariable Long id, @ModelAttribute @Valid TruyenRequest truyenRequest) {
+        Truyen truyen = truyenService.updateTruyen(id, truyenRequest);
+        return new ResponseEntity<>(truyen, HttpStatus.OK);
+    }
 }

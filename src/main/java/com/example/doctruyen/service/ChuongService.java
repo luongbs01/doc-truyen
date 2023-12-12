@@ -8,6 +8,7 @@ import com.example.doctruyen.repository.ChuongRepository;
 import com.example.doctruyen.repository.TruyenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -56,5 +57,22 @@ public class ChuongService {
 
     public void xoaChuong(Long id) {
         chuongRepository.deleteById(id);
+    }
+
+    @Transactional
+    public Chuong updateChuong(Long id, ChuongRequest chuongRequest) {
+        Chuong before = chuongRepository.findById(id)
+                .orElseThrow(() -> new GlobalException("Chuong voi id " + id + " khong ton tai"));
+        String urlNoiDungChuong = chuongRequest.getNoiDungChuong() == null ?
+                before.getUrlNoiDungChuong() :
+                fileService.uploadFile(chuongRequest.getNoiDungChuong());
+        Chuong chuong = Chuong.builder()
+                .idChuong(id)
+                .tieuDeChuong(chuongRequest.getTieuDeChuong())
+                .urlNoiDungChuong(urlNoiDungChuong)
+                .thuTuChuong(chuongRequest.getThuTuChuong())
+                .truyen(before.getTruyen())
+                .build();
+        return chuongRepository.save(chuong);
     }
 }

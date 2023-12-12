@@ -6,14 +6,10 @@ import com.example.doctruyen.mapper.TruyenMapper;
 import com.example.doctruyen.model.Truyen;
 import com.example.doctruyen.repository.TruyenRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -49,5 +45,17 @@ public class TruyenService {
 
     public void xoaTruyen(Long id) {
         truyenRepository.deleteById(id);
+    }
+
+    @Transactional
+    public Truyen updateTruyen(Long id, TruyenRequest truyenRequest) {
+        Truyen before = truyenRepository.findById(id)
+                .orElseThrow(() -> new GlobalException("Truyen voi id " + id + " khong ton tai"));
+        Truyen truyen = truyenMapper.mapUpdate(truyenRequest);
+        truyen.setIdTruyen(id);
+        if (truyenRequest.getAnh() == null) {
+            truyen.setUrlAnh(before.getUrlAnh());
+        }
+        return truyenRepository.save(truyen);
     }
 }

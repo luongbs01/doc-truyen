@@ -16,11 +16,11 @@ import org.springframework.web.multipart.MultipartFile;
 public class TruyenRequest {
     @NotBlank(message = "Vui long nhap truyen")
     private String tenTruyen;
-    @NotNull(message = "Vui long gan anh")
     @AllowedFileTypes(allowedTypes = {"image/jpeg", "image/png"})
     private MultipartFile anh;
     private String moTa;
     private String nguon;
+    private boolean full;
     @NotNull(message = "Vui long nhap id tac gia")
     private Long idTacGia;
     private Long[] idTheLoai;

@@ -33,7 +33,14 @@ public abstract class TruyenMapper {
     @Mapping(target = "danhSachTheLoai", expression = "java(getTheLoai(truyenRequest.getIdTheLoai()))")
     public abstract Truyen map(TruyenRequest truyenRequest);
 
+    @Mapping(target = "urlAnh", expression = "java(getUrlAnh(truyenRequest.getAnh()))")
+    @Mapping(target = "tacGia", expression = "java(getTacGia(truyenRequest.getIdTacGia()))")
+    @Mapping(target = "danhSachTheLoai", expression = "java(getTheLoai(truyenRequest.getIdTheLoai()))")
+    public abstract Truyen mapUpdate(TruyenRequest truyenRequest);
+
     String getUrlAnh(MultipartFile anh) {
+        if (null == anh)
+            return null;
         return fileService.uploadFile(anh);
     }
 

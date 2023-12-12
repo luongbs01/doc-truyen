@@ -59,9 +59,6 @@ public class TacGiaService {
 
     @Transactional
     public TacGia updateTacGia(Long id, TacGiaRequest tacGiaRequest) {
-        if (tacGiaRepository.findByTenTacGia(tacGiaRequest.getTenTacGia()).isPresent()) {
-            throw new GlobalException("Ten tac gia da ton tai");
-        }
         TacGia tacGia = tacGiaRepository.findById(id)
                 .orElseThrow(() -> new GlobalException("Tac gia voi id " + id + " khong ton tai"));
         tacGia.setTenTacGia(tacGiaRequest.getTenTacGia());

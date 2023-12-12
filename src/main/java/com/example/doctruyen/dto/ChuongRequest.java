@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class ChuongRequest {
     @NotBlank(message = "Vui long nhap tieu de")
     private String tieuDeChuong;
-    @NotNull(message = "Vui long nhap noi dung")
     @AllowedFileTypes(allowedTypes = {"application/json"})
     private MultipartFile noiDungChuong;
     @Positive(message = "Thu tu chuong la so tu nhien")

@@ -53,6 +53,7 @@ public class TruyenService {
                 .orElseThrow(() -> new GlobalException("Truyen voi id " + id + " khong ton tai"));
         Truyen truyen = truyenMapper.mapUpdate(truyenRequest);
         truyen.setIdTruyen(id);
+        truyen.setNgayDang(before.getNgayDang());
         if (truyenRequest.getAnh() == null) {
             truyen.setUrlAnh(before.getUrlAnh());
         }

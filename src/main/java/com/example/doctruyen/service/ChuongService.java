@@ -50,8 +50,8 @@ public class ChuongService {
         return danhSachChuong;
     }
 
-    public List<Chuong> getChuongByIdTruyenPagination(Long idTruyen, Integer page, Integer size) {
-        List<Chuong> danhSachChuong = chuongRepository.findAllByTruyenId(idTruyen, page, size);
+    public List<Chuong> getChuongByIdTruyenPagination(Long idTruyen, Integer page, Integer size, String sort) {
+        List<Chuong> danhSachChuong = chuongRepository.findAllByTruyenId(idTruyen, page, size, sort);
         return danhSachChuong;
     }
 

@@ -17,7 +17,12 @@ public interface ChuongRepository extends JpaRepository<Chuong, Long> {
 
     @Query(nativeQuery = true, value = "SELECT * FROM chuong c " +
             "WHERE c.id_truyen = ?1 " +
-            "ORDER BY c.thu_tu_chuong " +
+            "ORDER BY (CASE " +
+            "WHEN ?4 = 'asc' THEN c.thu_tu_chuong " +
+            "END) ASC," +
+            "(CASE " +
+            "WHEN ?4 = 'desc' THEN c.thu_tu_chuong " +
+            "END) DESC " +
             "LIMIT ?3 OFFSET ?2")
-    List<Chuong> findAllByTruyenId(Long truyenId, Integer page, Integer size);
+    List<Chuong> findAllByTruyenId(Long truyenId, Integer page, Integer size, String sort);
 }

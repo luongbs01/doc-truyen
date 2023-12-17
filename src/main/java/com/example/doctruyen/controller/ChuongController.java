@@ -40,9 +40,10 @@ public class ChuongController {
     public ResponseEntity<List<Chuong>> getChuongByIdTruyenPagination(
             @RequestParam Long idTruyen,
             @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "asc") String sort
     ) {
-        List<Chuong> danhSachChuong = chuongService.getChuongByIdTruyenPagination(idTruyen, size * (page - 1), size);
+        List<Chuong> danhSachChuong = chuongService.getChuongByIdTruyenPagination(idTruyen, size * (page - 1), size, sort);
         return new ResponseEntity<>(danhSachChuong, HttpStatus.OK);
     }
 

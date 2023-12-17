@@ -29,7 +29,7 @@ public class TruyenController {
             @RequestParam(required = false) String tenTruyen,
             @RequestParam(required = false) Long idTacGia,
             @RequestParam(required = false) Long idTheLoai,
-            @RequestParam(required = false) boolean isFull,
+            @RequestParam(required = false) Boolean isFull,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
